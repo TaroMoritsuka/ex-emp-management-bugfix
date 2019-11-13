@@ -56,6 +56,9 @@
 										<label for="mailAddress">
 											メールアドレス:
 										</label>
+										<div class="alert alert-danger" th:if="${mailAddressErrorMessage}">
+			                                <p th:text="${mailAddressErrorMessage}">メールアドレスまたはパスワードが間違っています</p>
+			                            </div>
 										<label th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}" class="error-messages">
 											メールアドレスを入力してください
 										</label>
