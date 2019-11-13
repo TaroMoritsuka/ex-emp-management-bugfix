@@ -52,6 +52,16 @@ public class EmployeeController {
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
 	}
+	
+	@RequestMapping("/search-by-word")
+	public String searchByWord(String word,Model model) {
+		System.out.println(word);
+		List<Employee> employeeList = employeeService.findByWord(word);
+		System.out.println(employeeList);
+		model.addAttribute("employeeList",employeeList);
+		return "employee/list";
+		
+	}
 
 	
 	/////////////////////////////////////////////////////

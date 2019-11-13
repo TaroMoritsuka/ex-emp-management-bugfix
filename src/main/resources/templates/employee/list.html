@@ -54,6 +54,13 @@
 		<ol class="breadcrumb">
 			<li class="active"><a href="list.html" th:href="@{/employee/showList}">従業員リスト</a></li>
 		</ol>
+			
+			<form class="form-inline" th:action="@{/employee/search-by-word}" method="post">
+ 				 <div class="form-group mx-sm-3 mb-2">
+ 					   <input type="text" name="word" class="form-control" placeholder="氏名や苗字を入力">
+ 				 </div>			
+ 				 <button type="submit" class="btn btn-warning mb-2">従業員検索</button>
+			</form>
 
 		<!-- table -->
 		<div class="row">
