@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import jp.co.sample.emp_management.domain.Administrator;
+import jp.co.sample.emp_management.form.InsertAdministratorForm;
 
 /**
  * administratorsテーブルを操作するリポジトリ.
@@ -63,6 +64,8 @@ public class AdministratorRepository {
 		String sql = "insert into administrators(name,mail_address,password)values(:name,:mailAddress,:password);";
 		template.update(sql, param);
 	}
+	
+	
 
 	/**
 	 * メールアドレスから管理者情報を取得します.

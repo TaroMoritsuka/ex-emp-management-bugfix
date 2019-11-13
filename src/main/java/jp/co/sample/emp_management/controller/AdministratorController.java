@@ -61,6 +61,8 @@ public class AdministratorController {
 	public String toInsert() {
 		return "administrator/insert";
 	}
+	
+	
 
 	/**
 	 * 管理者情報を登録します.
@@ -75,13 +77,20 @@ public class AdministratorController {
 			return toInsert();
 		} 
 		if(administratorService.findByMailAddress(form.getMailAddress()) == null) {
-			Administrator administrator = new Administrator();
-			// フォームからドメインにプロパティ値をコピー
-			BeanUtils.copyProperties(form, administrator);
-			administratorService.insert(administrator);
-			return "redirect:/";
+			if(administratorService.isCheckPassword(form)) {
+				Administrator administrator = new Administrator();
+				// フォームからドメインにプロパティ値をコピー
+				BeanUtils.copyProperties(form, administrator);
+				administratorService.insert(administrator);
+				return "redirect:/";
+			} else {
+				model.addAttribute("passwordConfirmErrorMessage","パスワードは同じものを入力してください");
+				System.out.println(8);
+				return toInsert();
+			}
 		} else {
 			model.addAttribute("mailAddressErrorMessage","このメールアドレスは既に登録されています");
+			System.out.println(9);
 			return toInsert();
 		}
 	}

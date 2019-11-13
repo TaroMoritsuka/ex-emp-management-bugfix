@@ -15,6 +15,7 @@ public class Administrator {
 	private String mailAddress;
 	/** パスワード */
 	private String password;
+	
 
 	/**
 	 * 引数無しのコンストラクタ.
@@ -40,6 +41,8 @@ public class Administrator {
 		this.mailAddress = mailAddress;
 		this.password = password;
 	}
+
+	
 
 	public Integer getId() {
 		return id;

@@ -21,6 +21,19 @@ public class InsertAdministratorForm {
 	@NotBlank(message="パスワードは必須です")
 	@Size(min=1,max=127,message="パスワードは1文字以上127文字以内で記載してください")
 	private String password;
+	
+	@NotBlank(message="パスワードは必須です")
+	@Size(min=1,max=127,message="パスワードは1文字以上127文字以内で記載してください")
+	/**確認用パスワード*/
+	private String passwordConfirm;
+	
+	
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
 	public String getName() {
 		return name;
 	}

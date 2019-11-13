@@ -74,11 +74,28 @@
 										<label for="passwaord">
 											パスワード:
 										</label>
+										<div class="alert alert-danger" th:if="${passwordConfirmErrorMessage}">
+			                                <p th:text="${passwordConfirmErrorMessage}">メールアドレスまたはパスワードが間違っています</p>
+			                            </div>
 										<label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-messages">
 											パスワードを入力してください
 										</label>
 										<input type="password" name="password" id="password" class="form-control" placeholder="password"
 											 th:field="*{password}" th:errorclass="error-input" value="xxxxxxxx">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-12">
+										<label for="passwaord">
+											パスワード(確認用):
+										</label>
+										<label th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" class="error-messages">
+											パスワードを入力してください
+										</label>
+										<input type="password" name="passwordConfirm" id="password" class="form-control" placeholder="password"
+											 th:field="*{passwordConfirm}" th:errorclass="error-input" value="xxxxxxxx">
 									</div>
 								</div>
 							</div>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.sample.emp_management.domain.Administrator;
+import jp.co.sample.emp_management.form.InsertAdministratorForm;
 import jp.co.sample.emp_management.repository.AdministratorRepository;
 
 /**
@@ -48,5 +49,14 @@ public class AdministratorService {
 	public Administrator findByMailAddress(String mailAddress) {
 		Administrator administrator = administratorRepository.findByMailAddress(mailAddress);
 		return administrator;
+	}
+	
+	/**
+	 * パスワードと確認用パスワードが一致しているかを判定する
+	 * @param form
+	 * @return　一致していたらtrue,そうでなければfalseを返す
+	 */
+	public boolean isCheckPassword(InsertAdministratorForm form) {
+		return form.getPassword().equals(form.getPasswordConfirm());
 	}
 }
