@@ -50,6 +50,9 @@ public class EmployeeController {
 	public String showList(Model model) {
 		List<Employee> employeeList = employeeService.showList();
 		model.addAttribute("employeeList", employeeList);
+		List<String> employeeNameList = employeeService.findAllName();
+		model.addAttribute("employeeNameList",employeeNameList);	
+		System.out.println(employeeNameList);
 		return "employee/list";
 	}
 	

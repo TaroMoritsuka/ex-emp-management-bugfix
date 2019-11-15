@@ -1,10 +1,13 @@
 package jp.co.sample.emp_management.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jp.co.sample.emp_management.domain.Employee;
 import jp.co.sample.emp_management.repository.EmployeeRepository;
@@ -30,6 +33,17 @@ public class EmployeeService {
 	public List<Employee> showList() {
 		List<Employee> employeeList = employeeRepository.findAll();
 		return employeeList;
+	}
+	
+	@JsonProperty("employeeNameList")
+	public List<String> findAllName(){
+		List<Employee> employeeList = employeeRepository.findAll();
+		
+		List<String> employeeNameList = new ArrayList<>();
+		for (Employee employee : employeeList) {
+			employeeNameList.add(employee.getName());
+		}
+		return employeeNameList;
 	}
 	
 	/**
