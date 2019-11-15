@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.sample.emp_management.domain.Employee;
@@ -48,19 +49,16 @@ public class EmployeeController {
 	 */
 	@RequestMapping("/showList")
 	public String showList(Model model) {
-		List<Employee> employeeList = employeeService.showList();
-		model.addAttribute("employeeList", employeeList);
 		List<String> employeeNameList = employeeService.findAllName();
 		model.addAttribute("employeeNameList",employeeNameList);	
-		System.out.println(employeeNameList);
+		model.addAttribute("employeeList", employeeService.showList());
+		model.addAttribute("pageNum",employeeService.pageList());
 		return "employee/list";
 	}
 	
 	@RequestMapping("/search-by-word")
 	public String searchByWord(String word,Model model) {
-		System.out.println(word);
 		List<Employee> employeeList = employeeService.findByWord(word);
-		System.out.println(employeeList);
 		model.addAttribute("employeeList",employeeList);
 		return "employee/list";
 		
@@ -104,5 +102,45 @@ public class EmployeeController {
 		employee.setDependentsCount(form.getIntDependentsCount());
 		employeeService.update(employee);
 		return "redirect:/employee/showList";
+	}
+	
+	@RequestMapping("/findAllPageNum/{index}")
+	public String findAllPageNum(@PathVariable("index") Integer index,Model model) {
+		Integer pageNum;
+		if(index == 1) {
+			pageNum = 1;
+		} else {
+			pageNum = index * 10 - 11;			
+		}
+		model.addAttribute("employeeList",employeeService.findAllPageNum(pageNum));
+		model.addAttribute("pageNum", employeeService.pageList());
+		model.addAttribute("index", index);
+		return "employee/list";
+	}
+	
+	@RequestMapping("/findAllPageBack/{index}")
+	public String findAllPageBack(@PathVariable("index") Integer index,Model model) {
+		index--;
+		Integer pageNum;
+		if(index == 1) {
+			pageNum = 1;
+		} else {
+			pageNum = index * 10 - 11;			
+		}
+		model.addAttribute("employeeList",employeeService.findAllPageNum(pageNum));
+		model.addAttribute("pageNum", employeeService.pageList());
+		model.addAttribute("index", index);
+		return "employee/list";
+	}
+	
+	@RequestMapping("/findAllPageNext/{index}")
+	public String findAllPageNext(@PathVariable("index") Integer index,Model model) {
+		model.addAttribute("pageNum", employeeService.pageList());
+		index++;
+		Integer pageNum;
+		pageNum = index * 10 - 11;			
+		model.addAttribute("employeeList",employeeService.findAllPageNum(pageNum));
+		model.addAttribute("index", index);
+		return "employee/list";
 	}
 }

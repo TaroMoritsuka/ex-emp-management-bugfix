@@ -78,29 +78,19 @@ public class AdministratorController {
 		} 
 		if(administratorService.findByMailAddress(form.getMailAddress()) == null) {
 			result.rejectValue("mailAddress", null, "このパスワードは既に登録されています");
-		}
-		if(!(administratorService.isCheckPassword(form))){
-			
-		}
-		
-		
-		if(administratorService.findByMailAddress(form.getMailAddress()) == null) {
-			if(administratorService.isCheckPassword(form)) {
-				Administrator administrator = new Administrator();
-				// フォームからドメインにプロパティ値をコピー
-				BeanUtils.copyProperties(form, administrator);
-				administratorService.insert(administrator);
-				return "redirect:/";
-			} else {
-				model.addAttribute("passwordConfirmErrorMessage","パスワードは同じものを入力してください");
-				return toInsert();
-			}
-		} else {
-			model.addAttribute("mailAddressErrorMessage","このメールアドレスは既に登録されています");
 			return toInsert();
 		}
+		if(!(administratorService.isCheckPassword(form))){
+			result.rejectValue("password", null, "パスワードは同じものを入力してください");
+			return toInsert();
+		} 
+		Administrator administrator = new Administrator();
+		// フォームからドメインにプロパティ値をコピー
+		BeanUtils.copyProperties(form, administrator);
+		administratorService.insert(administrator);
+		return "redirect:/";
 	}
-
+		
 	/////////////////////////////////////////////////////
 	// ユースケース：ログインをする
 	/////////////////////////////////////////////////////
@@ -132,7 +122,7 @@ public class AdministratorController {
 			return toLogin(model);
 		}
 		session.setAttribute("administratorName",administrator.getName());
-		return "forward:/employee/showList";
+		return "forward:/employee/findAllPageNum/1";
 	}
 	
 	/////////////////////////////////////////////////////

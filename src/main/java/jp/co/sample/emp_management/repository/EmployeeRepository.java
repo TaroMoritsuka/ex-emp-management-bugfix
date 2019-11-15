@@ -95,4 +95,25 @@ public class EmployeeRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("str", str);
 		return template.query(sql, param,EMPLOYEE_ROW_MAPPER);
 	}
+	
+	/**
+	 * 指定したidから10件検索しページングに使用するメソッド.
+	 * @param pageNum ページ数
+	 * @return　従業員のリストを返す
+	 */
+	public List<Employee> findAllPageNum(Integer pageNum){
+		String sql = "SELECT id,name,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count,image FROM employees ORDER BY id ASC LIMIT 10 OFFSET :page;";
+		//String page = Integer.toString(pageNum);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("page", pageNum);
+		return template.query(sql, param, EMPLOYEE_ROW_MAPPER);
+	}
+	/**
+	 * ページネーションに使用し、全件のカウントを行うメソッド.
+	 * @return　従業員のデータ件数を返す
+	 */
+	public Integer findAllCount() {
+		String sql = "SELECT COUNT(*) FROM employees;";
+		SqlParameterSource param = new MapSqlParameterSource();
+		return template.queryForObject(sql, param, Integer.class);
+	}
 }

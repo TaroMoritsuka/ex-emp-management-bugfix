@@ -110,6 +110,13 @@
 						</tr>
 					</tbody>
 				</table>
+				<nav>
+					<ul class="pagination">
+                        <li  th:if="${index != 1}"><a href="#" aria-label="前のページへ" th:href="@{'/employee/findAllPageBack/' + ${index}}" ><span aria-hidden="true">«</span></a></li> 
+						<li  th:each="page:${pageNum}"><a th:href="@{'/employee/findAllPageNum/' + ${page}}" th:text="${page}">1</a></li>
+	                    <li  th:unless="${index == pageNum.size()}"><a href="#" aria-label="次のページへ" th:href="@{'/employee/findAllPageNext/' + ${index}}"> <span aria-hideen="true">»</span></a></li>  
+					</ul>
+				</nav>
 
 
 <!-- ここから下を編集する必要はありません -->

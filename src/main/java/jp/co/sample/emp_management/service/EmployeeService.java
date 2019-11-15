@@ -70,4 +70,42 @@ public class EmployeeService {
 	public List<Employee> findByWord(String word){
 		return employeeRepository.findByWord(word);
 	}
+	
+	/**
+	 * 従業員のデータ件数を取得する.
+	 * @return 従業員のデータ件数を返す
+	 */
+	public int countData() {
+		return employeeRepository.findAllCount();
+	}
+	
+	/**
+	 * ページネーションのページ数の数を1からリストにするメソッド.
+	 * @return 1からページ数の1リストを返す
+	 */
+	public List<Integer> pageList(){
+		Integer countData = employeeRepository.findAllCount();
+		List<Integer> pageNum = new ArrayList<>();
+		if( countData / 10 == 0) {
+			for(int i = 1; i<=countData; i++) {
+				pageNum.add(i);
+			} 
+		} else {
+			for(int i = 1; i <= countData/10+1; i++) {
+				pageNum.add(i);
+			}
+		}
+		return pageNum;
+	}
+	
+	/**
+	 * 表示するページの数字から、表示する従業員10件を取得する
+	 * @param pageNum ページ数
+	 * @return　従業員のリストを返す
+	 */
+	public List<Employee> findAllPageNum(Integer pageNum){
+		return employeeRepository.findAllPageNum(pageNum);
+	}
+	
+	
 }
